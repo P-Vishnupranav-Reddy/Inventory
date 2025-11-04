@@ -19,7 +19,7 @@
 
 1) The easiest issues to fix were the self-contained, single-line changes. For example, removing the eval call was a simple line deletion that instantly solved a major security risk. Similarly, fixing the potential KeyError in getQty by changing stock_data[item] to stock_data.get(item, 0) was a straightforward, standard Python idiom. These were easy because they were local fixes that didn't affect any other part of the code.
 
-The hardest issue by far was refactoring the code to remove the global stock_data variable. This was not a local fix but an architectural change that had a ripple effect across the entire module. It required modifying the function signature of almost every function to accept stock_data as a parameter and then updating the main() function to manage and pass this state variable, fundamentally changing the program's data flow.
+   The hardest issue by far was refactoring the code to remove the global stock_data variable. This was not a local fix but an architectural change that had a ripple effect across the entire module. It required modifying the function signature of almost every function to accept stock_data as a parameter and then updating the main() function to manage and pass this state variable, fundamentally changing the program's data flow.
 
 2) The static analysis tools did not report any false positives. Every issue flagged by tools like Pylint and Bandit pointed to a genuine, tangible problem. The eval call was a real security risk, the mutable default argument was a subtle but critical bug, the bare except was hiding errors, and the global variable was a poor design choice. All style violations, like naming and missing docstrings, correctly identified code that was less readable and maintainable.
 
